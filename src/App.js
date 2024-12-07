@@ -6,7 +6,7 @@ import './App.css';
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/menumitra_customer_display_system">
       <Routes>
         {/* Public Routes */}
         <Route path="/login" element={<LoginScreen />} />
