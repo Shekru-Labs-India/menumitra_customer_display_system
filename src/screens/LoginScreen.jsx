@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { authService } from '../services/authService'
 import './LoginScreen.css'
+import logo from '../assets/logo.png'
 
 function LoginScreen() {
   const [mobileNumber, setMobileNumber] = useState('')
@@ -101,7 +102,14 @@ function LoginScreen() {
                 <div className="card-body p-5">
                   {/* Logo or Brand */}
                   <div className="text-center mb-4">
-                    <h2 className="fw-bold text-primary">MenuMitra</h2>
+                    <div className="d-flex justify-content-center align-items-center">
+                      <img
+                        src={logo}
+                      alt="MenuMitra"
+                        className="mb-3 h-25 w-25"
+                      />
+                      <h2 className="fw-bold text-dark ms-3">MenuMitra</h2>
+                    </div>
                     <p className="text-muted">Customer Display System</p>
                   </div>
 
@@ -182,12 +190,17 @@ function LoginScreen() {
                               type="text"
                               className="form-control form-control-lg text-center fw-bold"
                               style={{
-                                width: '60px',
-                                height: '60px',
-                                fontSize: '24px'
+                                width: "60px",
+                                height: "60px",
+                                fontSize: "24px",
                               }}
                               value={otpValues[index]}
-                              onChange={(e) => handleOtpChange(index, e.target.value.replace(/\D/g, ''))}
+                              onChange={(e) =>
+                                handleOtpChange(
+                                  index,
+                                  e.target.value.replace(/\D/g, "")
+                                )
+                              }
                               onKeyDown={(e) => handleKeyDown(index, e)}
                               onPaste={handlePaste}
                               maxLength="1"
@@ -199,12 +212,14 @@ function LoginScreen() {
                             />
                           ))}
                         </div>
-                        <div className="form-text text-center mt-2">Default OTP: 1234</div>
+                        <div className="form-text text-center mt-2">
+                          Default OTP: 1234
+                        </div>
                       </div>
                       <button
                         type="submit"
                         className="btn btn-primary btn-lg w-100 mb-3"
-                        disabled={loading || otpValues.some(v => v === '')}
+                        disabled={loading || otpValues.some((v) => v === "")}
                       >
                         {loading ? (
                           <>
@@ -223,8 +238,8 @@ function LoginScreen() {
                         type="button"
                         className="btn btn-link w-100 text-decoration-none"
                         onClick={() => {
-                          setShowOtp(false)
-                          setOtpValues(['', '', '', ''])
+                          setShowOtp(false);
+                          setOtpValues(["", "", "", ""]);
                         }}
                         disabled={loading}
                       >

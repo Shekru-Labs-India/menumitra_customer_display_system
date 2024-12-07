@@ -7,7 +7,7 @@ function Header() {
   return (
     <header className="bg-dark">
       <nav className="navbar navbar-expand-lg navbar-dark py-2">
-        <div className="container">
+        <div className="container-fluid px-5">
           {/* Brand/Logo */}
           <Link to="/" className="navbar-brand d-flex align-items-center">
             <span className="fs-4 fw-bold">Jagdamba</span>
@@ -29,12 +29,12 @@ function Header() {
           {/* Navigation Links */}
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav ms-auto align-items-center">
-              <li className="nav-item bg-danger text-white fw-bold rounded-3">
+              <li className="nav-item fs-3">
                 <Link 
                   to="/login" 
                   className={`nav-link px-3`}
                 >
-                  Logout
+                  <i className='bx bx-log-out'></i>
                 </Link>
               </li>
             </ul>
