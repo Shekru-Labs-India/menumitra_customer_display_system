@@ -11,10 +11,10 @@ const INITIAL_ORDERS = [
 
   // Ongoing Orders
   { id: "444", status: "ongoing", itemCount: 0 },
-  { id: "229153", status: "ongoing", itemCount: 2 },
-  { id: "229154", status: "ongoing", itemCount: 3 },
-  { id: "229155", status: "ongoing", itemCount: 1 },
-  { id: "229156", status: "ongoing", itemCount: 4 }
+  { id: "229", status: "ongoing", itemCount: 2 },
+  { id: "229", status: "ongoing", itemCount: 3 },
+  { id: "229", status: "ongoing", itemCount: 1 },
+  { id: "229", status: "ongoing", itemCount: 4 }
 ]
 
 function OrdersScreen() {
@@ -116,7 +116,7 @@ function OrdersScreen() {
       <div className="container-fluid p-0">
         <div className="row g-0 min-vh-100">
           {/* Left Side - Placed Orders */}
-          <div className="col-12 col-md-6 bg-secondary">
+          <div className="col-12 col-md-4 bg-secondary">
             <div className="p-2 p-sm-3 p-md-4">
               <h1
                 className={`${fontSizes.header} text-white text-center fw-bold mb-3 mb-md-4`}
@@ -134,12 +134,29 @@ function OrdersScreen() {
           </div>
 
           {/* Right Side - Ongoing Orders */}
-          <div className="col-12 col-md-6 bg-success">
+          <div className="col-12 col-md-4 bg-warning">
             <div className="p-2 p-sm-3 p-md-4">
               <h1
                 className={`${fontSizes.header} text-white text-center fw-bold mb-3 mb-md-4`}
               >
                 ONGOING ORDERS
+              </h1>
+              <div className="orders-container">
+                {orders
+                  .filter((order) => order.status === "ongoing")
+                  .map((order) => (
+                    <OrderCard key={order.id} order={order} />
+                  ))}
+              </div>
+            </div>
+          </div>
+          {/* Right Side - Ongoing Orders */}
+          <div className="col-12 col-md-4 bg-success">
+            <div className="p-2 p-sm-3 p-md-4">
+              <h1
+                className={`${fontSizes.header} text-white text-center fw-bold mb-3 mb-md-4`}
+              >
+                COMPLETED
               </h1>
               <div className="orders-container">
                 {orders
