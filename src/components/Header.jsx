@@ -4,23 +4,25 @@ import { Link, useLocation } from 'react-router-dom'
 function Header() {
   const location = useLocation()
 
+  const restaurantName = JSON.parse(localStorage.getItem("authData")).restaurant_name;
+
   return (
     <header className="bg-dark">
       <nav className="navbar navbar-expand-lg navbar-dark py-2">
         <div className="container-fluid px-5">
           {/* Brand/Logo */}
           <Link to="/" className="navbar-brand d-flex align-items-center">
-            <span className="fs-4 fw-bold">Jagdamba</span>
+            <span className="fs-4 fw-bold">{restaurantName.toUpperCase()}</span>
           </Link>
 
           {/* Hamburger Menu Button */}
-          <button 
-            className="navbar-toggler" 
-            type="button" 
-            data-bs-toggle="collapse" 
-            data-bs-target="#navbarNav" 
-            aria-controls="navbarNav" 
-            aria-expanded="false" 
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
             aria-label="Toggle navigation"
           >
             <span className="navbar-toggler-icon"></span>
@@ -30,11 +32,8 @@ function Header() {
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav ms-auto align-items-center">
               <li className="nav-item fs-3">
-                <Link 
-                  to="/login" 
-                  className={`nav-link px-3`}
-                >
-                  <i className='bx bx-log-out'></i>
+                <Link to="/login" className={`nav-link px-3`}>
+                  <i className="bx bx-log-out"></i>
                 </Link>
               </li>
             </ul>
@@ -42,7 +41,7 @@ function Header() {
         </div>
       </nav>
     </header>
-  )
+  );
 }
 
 // Clock Component

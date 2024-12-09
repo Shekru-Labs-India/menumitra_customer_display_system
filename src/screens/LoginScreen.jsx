@@ -21,10 +21,11 @@ function LoginScreen() {
 
     try {
       const result = await authService.sendOTP(mobileNumber);
-      if (result.success) {
+      if (result.st === 1) {
         setShowOtp(true);
+        localStorage.setItem("otp", 1234);
       } else {
-        setError(result.error || "Invalid mobile number");
+        setError(result.msg || "Invalid mobile number");
       }
     } catch (err) {
       setError("Failed to send OTP");
@@ -40,10 +41,10 @@ function LoginScreen() {
 
     try {
       const result = await authService.verifyOTP(mobileNumber, otp);
-      if (result.success) {
+      if (result.st === 1) {
         navigate("/orders");
       } else {
-        setError(result.error || "Invalid OTP");
+        setError(result.msg || "Invalid OTP");
       }
     } catch (err) {
       setError("Failed to verify OTP");
@@ -54,14 +55,13 @@ function LoginScreen() {
 
   // Handle OTP input changes
   const handleOtpChange = (index, value) => {
-    if (value.length > 1) return; // Prevent multiple digits
+    if (value.length > 1) return;
 
     const newOtpValues = [...otpValues];
     newOtpValues[index] = value;
     setOtpValues(newOtpValues);
-    setOtp(newOtpValues.join("")); // Update the main OTP state
+    setOtp(newOtpValues.join(""));
 
-    // Move to next input if value is entered
     if (value !== "" && index < 3) {
       otpRefs[index + 1].current.focus();
     }
@@ -99,7 +99,6 @@ function LoginScreen() {
           <div className="col-11 col-sm-10 col-md-8 col-lg-6 col-xl-4">
             <div className="card border-0 shadow-lg">
               <div className="card-body p-3 p-sm-4 p-lg-5">
-                {/* Logo and Brand */}
                 <div className="text-center mb-4">
                   <div className="d-flex justify-content-center align-items-center mb-2">
                     <img
@@ -117,7 +116,6 @@ function LoginScreen() {
                   </p>
                 </div>
 
-                {/* Error Alert */}
                 {error && (
                   <div
                     className="alert alert-danger alert-dismissible fade show py-2 small"
@@ -133,7 +131,6 @@ function LoginScreen() {
                 )}
 
                 {!showOtp ? (
-                  // Mobile Number Form
                   <form onSubmit={handleMobileSubmit}>
                     <div className="mb-3 mb-lg-4">
                       <label
@@ -178,7 +175,6 @@ function LoginScreen() {
                     </button>
                   </form>
                 ) : (
-                  // OTP Form
                   <form onSubmit={handleOtpSubmit}>
                     <div className="mb-3 mb-lg-4">
                       <label className="form-label text-muted fw-semibold small">
@@ -191,15 +187,6 @@ function LoginScreen() {
                             ref={otpRefs[index]}
                             type="text"
                             className="form-control text-center fw-bold p-0"
-                            style={{
-                              width: "42px",
-                              height: "42px",
-                              fontSize: "1.2rem",
-                              "@media (min-width: 576px)": {
-                                width: "50px",
-                                height: "50px",
-                              },
-                            }}
                             value={otpValues[index]}
                             onChange={(e) =>
                               handleOtpChange(
@@ -217,26 +204,13 @@ function LoginScreen() {
                           />
                         ))}
                       </div>
-                      <div className="form-text text-center mt-2 small">
-                        Default OTP: 1234
-                      </div>
                     </div>
                     <button
                       type="submit"
                       className="btn btn-primary w-100 py-2 mb-2"
                       disabled={loading || otpValues.some((v) => v === "")}
                     >
-                      {loading ? (
-                        <>
-                          <span
-                            className="spinner-border spinner-border-sm me-2"
-                            role="status"
-                          />
-                          Verifying...
-                        </>
-                      ) : (
-                        "Verify OTP"
-                      )}
+                      {loading ? "Verifying..." : "Verify OTP"}
                     </button>
                     <button
                       type="button"
