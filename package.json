@@ -38,6 +38,5 @@
   "devDependencies": {
     "gh-pages": "^6.2.0"
   },
-  "homepage": "https://Shekru-Labs-India.github.io/menumitra_customer_display_system",
   "base": "/menumitra_customer_display_system"
 }
