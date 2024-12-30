@@ -37,7 +37,5 @@
   },
   "devDependencies": {
     "gh-pages": "^6.2.0"
-  },
-
-  "base": "/menumitra_customer_display_system"
+  }
 }
