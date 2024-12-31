@@ -32,14 +32,9 @@ export const authService = {
       const result = await response.json();
 
       if (result.st === 1) {
-        localStorage.setItem(
-          "authData",
-          JSON.stringify({
-            restaurant_id: result.restaurant_id,
-            owner_id: result.owner_id,
-            restaurant_name: result.restaurant_name,
-          })
-        );
+        localStorage.setItem("outlet_id", result.outlet_id);
+        localStorage.setItem("owner_id", result.owner_id);
+        localStorage.setItem("outlet_name", result.outlet_name);
       }
 
       return result;

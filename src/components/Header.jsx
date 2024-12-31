@@ -4,7 +4,7 @@ import { Link, useLocation } from 'react-router-dom'
 function Header() {
   const location = useLocation()
 
-  const restaurantName = JSON.parse(localStorage.getItem("authData")).restaurant_name;
+  const outletName = JSON.parse(localStorage.getItem("authData"))?.outlet_name;
 
   return (
     <header className="bg-dark">
@@ -12,32 +12,17 @@ function Header() {
         <div className="container-fluid px-5">
           {/* Brand/Logo */}
           <Link to="/" className="navbar-brand d-flex align-items-center">
-            <span className="fs-4 fw-bold">{restaurantName.toUpperCase()}</span>
+            <span className="fs-4 fw-bold">{outletName?.toUpperCase()}</span>
           </Link>
 
-          {/* Hamburger Menu Button */}
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-
           {/* Navigation Links */}
-          <div className="collapse navbar-collapse" id="navbarNav">
-            <ul className="navbar-nav ms-auto align-items-center">
-              <li className="nav-item fs-3">
-                <Link to="/login" className={`nav-link px-3`}>
-                  <i className="bx bx-log-out"></i>
-                </Link>
-              </li>
-            </ul>
-          </div>
+          <ul className="navbar-nav ms-auto align-items-center">
+            <li className="nav-item fs-3">
+              <Link to="/login" className={`nav-link px-3`}>
+                <i className="bx bx-log-out"></i>
+              </Link>
+            </li>
+          </ul>
         </div>
       </nav>
     </header>

@@ -8,7 +8,7 @@ function OrdersScreen() {
   const [error, setError] = useState("");
 
   // Retrieve restaurant_id from localStorage
-  const getRestaurantId = () => {
+  const getOutletId = () => {
     const authData = localStorage.getItem("authData");
     if (authData) {
       try {
@@ -23,12 +23,12 @@ function OrdersScreen() {
 
   // Fetch orders from the API
   const fetchOrders = async () => {
-    const restaurantId = getRestaurantId();
-    if (!restaurantId) {
-      setError("Restaurant ID not found in localStorage");
-      setLoading(false);
-      return;
-    }
+    const outletId = JSON.parse(localStorage.getItem("authData")).outlet_id;
+    // if (!outletId) {
+    //   setError("Outlet ID not found in localStorage");
+    //   setLoading(false);
+    //   return;
+    // }
 
     try {
       const response = await fetch(
@@ -36,7 +36,7 @@ function OrdersScreen() {
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ restaurant_id: restaurantId }),
+          body: JSON.stringify({ outlet_id: outletId }),
         }
       );
       const result = await response.json();
@@ -45,11 +45,11 @@ function OrdersScreen() {
           ...order,
           status: "placed",
         }));
-        const ongoingOrders = result.ongoing_orders.map((order) => ({
+        const ongoingOrders = result.cooking_orders.map((order) => ({
           ...order,
           status: "ongoing",
         }));
-        const completedOrders = result.completed_orders.map((order) => ({
+        const completedOrders = result.paid_orders.map((order) => ({
           ...order,
           status: "completed",
         }));
@@ -162,7 +162,7 @@ function OrdersScreen() {
               <h1
                 className={`${fontSizes.header} text-white text-center fw-bold mb-3 mb-md-4`}
               >
-                ONGOING 
+                COOKING 
               </h1>
               {loading ? (
                 <p className="text-white text-center">Loading...</p>
@@ -184,7 +184,7 @@ function OrdersScreen() {
               <h1
                 className={`${fontSizes.header} text-white text-center fw-bold mb-3 mb-md-4`}
               >
-                COMPLETED
+                PAID
               </h1>
               {loading ? (
                 <p className="text-white text-center">Loading...</p>
