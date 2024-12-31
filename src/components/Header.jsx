@@ -4,7 +4,7 @@ import { Link, useLocation } from 'react-router-dom'
 function Header() {
   const location = useLocation()
 
-  const outletName = JSON.parse(localStorage.getItem("authData"))?.outlet_name;
+  const outletName = localStorage.getItem("outlet_name");
 
   return (
     <header className="bg-dark">
