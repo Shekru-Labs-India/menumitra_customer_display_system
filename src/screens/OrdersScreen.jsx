@@ -141,7 +141,7 @@ function OrdersScreen() {
                 PLACED
               </h1>
               {loading ? (
-                <p className="text-white text-center">Loading...</p>
+                <p className="text-white text-center">Loading... </p>
               ) : error ? (
                 <p className="text-danger text-center">{error}</p>
               ) : (
