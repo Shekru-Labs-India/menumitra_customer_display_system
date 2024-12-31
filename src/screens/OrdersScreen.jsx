@@ -23,12 +23,13 @@ function OrdersScreen() {
 
   // Fetch orders from the API
   const fetchOrders = async () => {
-    const outletId = JSON.parse(localStorage.getItem("authData")).outlet_id;
+    const outletId = JSON.parse(localStorage.getItem("outlet_id"));
     // if (!outletId) {
     //   setError("Outlet ID not found in localStorage");
     //   setLoading(false);
     //   return;
     // }
+    
 
     try {
       const response = await fetch(
