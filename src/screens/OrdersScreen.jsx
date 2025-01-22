@@ -6,41 +6,24 @@ function OrdersScreen() {
   const [screenSize, setScreenSize] = useState(window.innerWidth);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-
-  // Retrieve restaurant_id from localStorage
-  const getOutletId = () => {
-    const authData = localStorage.getItem("authData");
-    if (authData) {
-      try {
-        const { restaurant_id } = JSON.parse(authData);
-        return restaurant_id;
-      } catch (error) {
-        console.error("Error parsing localStorage authData:", error);
-      }
-    }
-    return null;
-  };
-
-  // Fetch orders from the API
   const fetchOrders = async () => {
-    const outletId = JSON.parse(localStorage.getItem("outlet_id"));
-    // if (!outletId) {
-    //   setError("Outlet ID not found in localStorage");
-    //   setLoading(false);
-    //   return;
-    // }
-    
-
+    const authData = JSON.parse(localStorage.getItem("authData"));
+    const outlet_id = authData?.outlet_id;
+  
+    if (!outlet_id) {
+      setError("Outlet ID not found in localStorage");
+      setLoading(false);
+      return;
+    }
+  
     try {
-      const response = await fetch(
-        "https://men4u.xyz/customer_display_system_api/cds_order_listview",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ outlet_id: outletId }),
-        }
-      );
+      const response = await fetch("https://men4u.xyz/common_api/order_listview", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ outlet_id }),
+      });
       const result = await response.json();
+  
       if (result.st === 1) {
         const placedOrders = result.placed_orders.map((order) => ({
           ...order,
@@ -65,7 +48,7 @@ function OrdersScreen() {
       setLoading(false);
     }
   };
-
+  
   useEffect(() => {
     fetchOrders();
   }, []);
