@@ -7,7 +7,7 @@ export const authService = {
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ mobile: mobileNumber ,role:'cds'}),
+          body: JSON.stringify({ mobile: mobileNumber ,role:'manager'}),
         }
       );
       const result = await response.json();
