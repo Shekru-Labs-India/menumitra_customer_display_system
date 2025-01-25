@@ -5,7 +5,11 @@ function Header() {
   const location = useLocation()
 
   const outletName = localStorage.getItem("outlet_name");
-
+  const handleLogout = () => {
+    // Clear all localStorage items
+    localStorage.clear();
+    // The Link component will handle the navigation to /login
+  };
   return (
     <header className="bg-dark">
       <nav className="navbar navbar-expand-lg navbar-dark py-2">
