@@ -30,6 +30,18 @@ export const authService = {
       return sessionId;
     };
   
+    const generateRandomFcmToken = (length) => {
+      const digits = "0123456789";
+      let fcmToken = "";
+      for (let i = 0; i < length; i++) {
+        fcmToken += digits.charAt(Math.floor(Math.random() * digits.length));
+      }
+      return fcmToken;
+    };
+    
+    // Example usage
+    const fcmToken = generateRandomFcmToken(12); // Generate a random FCM token of 12 digits
+    
     // Generate a 20-character session ID
     const deviceSessId = generateRandomSessionId(20);
   
@@ -40,7 +52,8 @@ export const authService = {
         body: JSON.stringify({
           mobile: mobileNumber,
           otp,
-          device_sessid: deviceSessId, // Include the generated session ID
+          device_sessid: deviceSessId, 
+          fcm_token: fcmToken, 
         }),
       });
   
@@ -57,6 +70,7 @@ export const authService = {
             outlet_name,
             outlet_id,
             device_sessid: deviceSessId, // Store the session ID in localStorage
+          
           })
         );
       }

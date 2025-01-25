@@ -153,6 +153,7 @@ function LoginScreen() {
                           required
                           disabled={loading}
                           placeholder="Enter mobile number"
+                          autoFocus
                         />
                       </div>
                     </div>
