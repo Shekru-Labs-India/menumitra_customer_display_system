@@ -7,7 +7,7 @@ export const authService = {
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ mobile: mobileNumber ,role:'manager'}),
+          body: JSON.stringify({ mobile: mobileNumber ,role:'cds'}),
         }
       );
       const result = await response.json();
@@ -54,6 +54,7 @@ export const authService = {
           otp,
           device_sessid: deviceSessId, 
           fcm_token: fcmToken, 
+          role:'cds'
         }),
       });
   

@@ -4,7 +4,8 @@ import { Link, useLocation } from 'react-router-dom'
 function Header() {
   const location = useLocation()
 
-  const outletName = localStorage.getItem("outlet_name");
+  const authData = JSON.parse(localStorage.getItem("authData"));
+  const outletName = authData?.outlet_name; // Get 
   const handleLogout = () => {
     // Clear all localStorage items
     localStorage.clear();
@@ -16,13 +17,13 @@ function Header() {
         <div className="container-fluid px-5">
           {/* Brand/Logo */}
           <Link to="/" className="navbar-brand d-flex align-items-center">
-            <span className="fs-4 fw-bold">{outletName?.toUpperCase()}</span>
+          <span className="fs-4 fw-bold">{outletName?.toUpperCase()}</span>
           </Link>
 
           {/* Navigation Links */}
           <ul className="navbar-nav ms-auto align-items-center">
             <li className="nav-item fs-3">
-              <Link to="/login" className={`nav-link px-3`}>
+              <Link to="/login" className={`nav-link px-3`} onClick={handleLogout}>
                 <i className="bx bx-log-out"></i>
               </Link>
             </li>
