@@ -36,6 +36,7 @@ function Header() {
         // Redirect to login page
        navigate("/login")
       } else {
+        navigate("/login")
       }
     } catch (error) {
       console.error("Error logging out:", error);
