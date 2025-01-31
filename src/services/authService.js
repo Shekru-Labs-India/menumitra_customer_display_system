@@ -61,7 +61,7 @@ export const authService = {
       const result = await response.json();
   
       if (result.st === 1) {
-        const { name, role, outlet_name, outlet_id } = result;
+        const { name, role, outlet_name, outlet_id,user_id,access_token } = result;
   
         localStorage.setItem(
           "authData",
@@ -69,7 +69,9 @@ export const authService = {
             name,
             role,
             outlet_name,
+            user_id,
             outlet_id,
+            access_token,
             device_sessid: deviceSessId, // Store the session ID in localStorage
           
           })

@@ -6,9 +6,13 @@ function OrdersScreen() {
   const [screenSize, setScreenSize] = useState(window.innerWidth);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const authData = JSON.parse(localStorage.getItem("authData"));
+  const outletName = authData?.outlet_name; // Get 
+  const accessToken = authData?.access_token; // Get 
   const fetchOrders = async () => {
     const authData = JSON.parse(localStorage.getItem("authData"));
     const outlet_id = authData?.outlet_id;
+    const accessToken = authData?.access_token; // Get 
   
     if (!outlet_id) {
       setError("Outlet ID not found in localStorage");
@@ -16,12 +20,28 @@ function OrdersScreen() {
       return;
     }
   
+    if (!accessToken) {
+      console.error("No access token found");
+      window.location.href = "/login"; // Redirect to login page if no token
+      return;
+    }
+  
     try {
       const response = await fetch("https://men4u.xyz/common_api/cds_kds_order_listview", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${accessToken}`, // Include the access token in the header
+        },
         body: JSON.stringify({ outlet_id }),
       });
+  
+      if (response.status === 401) {
+        console.error("Unauthorized access - redirecting to login");
+        window.location.href = "/login"; // Redirect to login if 401
+        return;
+      }
+  
       const result = await response.json();
   
       if (result.st === 1) {
@@ -48,6 +68,7 @@ function OrdersScreen() {
       setLoading(false);
     }
   };
+  
   
   useEffect(() => {
     fetchOrders();
