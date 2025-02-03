@@ -72,6 +72,10 @@ function OrdersScreen() {
   
   useEffect(() => {
     fetchOrders();
+    const intervalId = setInterval(fetchOrders, 10000);
+
+    // Cleanup interval on component unmount
+    return () => clearInterval(intervalId);
   }, []);
 
   // Handle screen resize
