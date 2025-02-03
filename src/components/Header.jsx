@@ -20,7 +20,7 @@ function Header() {
       };
   
       // Make API request to logout using fetch
-      const response = await fetch("https://men4u.xyz/common_api/logout", {
+      const response = await fetch("https://menusmitra.xyz/common_api/logout", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

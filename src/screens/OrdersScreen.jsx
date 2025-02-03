@@ -27,7 +27,7 @@ function OrdersScreen() {
     }
   
     try {
-      const response = await fetch("https://men4u.xyz/common_api/cds_kds_order_listview", {
+      const response = await fetch("https://menusmitra.xyz/common_api/cds_kds_order_listview", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
