@@ -1,1 +1,1 @@
-const apiDomain = "https://menusmitra.xyz/"; 
+const apiDomain = "https://men4u.xyz/"; 
