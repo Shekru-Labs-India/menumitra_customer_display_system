@@ -1,3 +1,4 @@
+
 export const authService = {
   // Send OTP
   sendOTP: async (mobileNumber) => {
@@ -52,27 +53,29 @@ export const authService = {
         body: JSON.stringify({
           mobile: mobileNumber,
           otp,
-          device_sessid: deviceSessId, 
-          fcm_token: fcmToken, 
-          role:'cds'
+
+          
+          device_id: deviceSessId, 
+          device_model: 'web',
+          fcm_token: fcmToken,
         }),
       });
   
       const result = await response.json();
   
       if (result.st === 1) {
-        const { name, role, outlet_name, outlet_id,user_id,access_token } = result;
+        const { name,  outlet_name, outlet_id,user_id,access_token } = result;
   
         localStorage.setItem(
           "authData",
           JSON.stringify({
             name,
-            role,
             outlet_name,
             user_id,
             outlet_id,
             access_token,
-            device_sessid: deviceSessId, // Store the session ID in localStorage
+            device_id: deviceSessId, // Store the session ID in localStorage
+            // device_model,
           
           })
         );

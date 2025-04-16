@@ -10,20 +10,36 @@ function LoginScreen() {
   const [showOtp, setShowOtp] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [timeLeft, setTimeLeft] = useState(10);
   const navigate = useNavigate();
   const [otpValues, setOtpValues] = useState(["", "", "", ""]);
   const otpRefs = [useRef(), useRef(), useRef(), useRef()];
+
+  // Timer effect for OTP expiration
+  useEffect(() => {
+    let timer;
+    if (showOtp && timeLeft > 0) {
+      timer = setInterval(() => {
+        setTimeLeft((prevTime) => prevTime - 1);
+      }, 1000);
+    } else if (timeLeft === 0) {
+      setShowOtp(false);
+      setOtpValues(["", "", "", ""]);
+      setError("OTP expired. Please request a new one.");
+    }
+    return () => clearInterval(timer);
+  }, [showOtp, timeLeft]);
 
   const handleMobileSubmit = async (e) => {
     e.preventDefault();
     setError("");
     setLoading(true);
+    setTimeLeft(10); // Reset timer when requesting new OTP
 
     try {
       const result = await authService.sendOTP(mobileNumber);
       if (result.st === 1) {
         setShowOtp(true);
-        localStorage.setItem("otp", 1234);
       } else {
         setError(result.msg || "Invalid mobile number");
       }
@@ -38,6 +54,12 @@ function LoginScreen() {
     e.preventDefault();
     setError("");
     setLoading(true);
+
+    if (timeLeft === 0) {
+      setError("OTP has expired. Please request a new one.");
+      setLoading(false);
+      return;
+    }
 
     try {
       const result = await authService.verifyOTP(mobileNumber, otp);
@@ -179,7 +201,7 @@ function LoginScreen() {
                   <form onSubmit={handleOtpSubmit}>
                     <div className="mb-3 mb-lg-4">
                       <label className="form-label text-muted fw-semibold small">
-                        Enter OTP
+                        Enter OTP (Expires in {timeLeft}s)
                       </label>
                       <div className="d-flex justify-content-center gap-2 gap-sm-3">
                         {[0, 1, 2, 3].map((index) => (
@@ -199,7 +221,7 @@ function LoginScreen() {
                             onPaste={handlePaste}
                             maxLength="1"
                             required
-                            disabled={loading}
+                            disabled={loading || timeLeft === 0}
                             autoComplete="off"
                             inputMode="numeric"
                           />
@@ -209,7 +231,11 @@ function LoginScreen() {
                     <button
                       type="submit"
                       className="btn btn-primary w-100 py-2 mb-2"
-                      disabled={loading || otpValues.some((v) => v === "")}
+                      disabled={
+                        loading ||
+                        otpValues.some((v) => v === "") ||
+                        timeLeft === 0
+                      }
                     >
                       {loading ? "Verifying..." : "Verify OTP"}
                     </button>
@@ -219,6 +245,7 @@ function LoginScreen() {
                       onClick={() => {
                         setShowOtp(false);
                         setOtpValues(["", "", "", ""]);
+                        setTimeLeft(10);
                       }}
                       disabled={loading}
                     >

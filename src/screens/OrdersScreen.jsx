@@ -9,16 +9,24 @@ function OrdersScreen() {
   const authData = JSON.parse(localStorage.getItem("authData"));
   const outletName = authData?.outlet_name; // Get 
   const accessToken = authData?.access_token; // Get 
+  
   const fetchOrders = async () => {
     const authData = JSON.parse(localStorage.getItem("authData"));
     const outlet_id = authData?.outlet_id;
     const accessToken = authData?.access_token; // Get 
+    const device_token = "Entjx4wL350fdkAPvRs2YHKeBgImyElMnk5USx1QYz5UbWGooIt16BLTqGMsCdfzQPn9SKg3YtkQ94KHHqk.cYjkEmN.8nvp-Qyr";
+
   
     if (!outlet_id) {
       setError("Outlet ID not found in localStorage");
       setLoading(false);
       return;
     }
+    // if (!device_token) {
+    //   setError("device_token not found in localStorage");
+    //   setLoading(false);
+    //   return;
+    // }
   
     if (!accessToken) {
       console.error("No access token found");
@@ -33,7 +41,7 @@ function OrdersScreen() {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${accessToken}`, // Include the access token in the header
         },
-        body: JSON.stringify({ outlet_id }),
+        body: JSON.stringify({ outlet_id, device_token }),
       });
   
       if (response.status === 401) {
@@ -73,6 +81,9 @@ function OrdersScreen() {
   useEffect(() => {
     fetchOrders();
     const intervalId = setInterval(fetchOrders, 10000);
+
+
+    
 
     // Cleanup interval on component unmount
     return () => clearInterval(intervalId);
