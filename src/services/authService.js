@@ -56,6 +56,10 @@ export const authService = {
           device_id: deviceSessId, 
           device_model: 'web',
           fcm_token: fcmToken,
+
+
+
+        
         }),
       });
   
