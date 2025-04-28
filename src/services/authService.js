@@ -53,6 +53,7 @@ export const authService = {
         body: JSON.stringify({
           mobile: mobileNumber,
           otp,
+          
           device_id: deviceSessId, 
           device_model: 'web',
           fcm_token: fcmToken,
