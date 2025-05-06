@@ -16,19 +16,19 @@ function LoginScreen() {
   const otpRefs = [useRef(), useRef(), useRef(), useRef()];
 
   // Timer effect for OTP expiration
-  useEffect(() => {
-    let timer;
-    if (showOtp && timeLeft > 0) {
-      timer = setInterval(() => {
-        setTimeLeft((prevTime) => prevTime - 1);
-      }, 1000);
-    } else if (timeLeft === 0) {
-      setShowOtp(false);
-      setOtpValues(["", "", "", ""]);
-      setError("OTP expired. Please request a new one.");
-    }
-    return () => clearInterval(timer);
-  }, [showOtp, timeLeft]);
+  // useEffect(() => {
+  //   let timer;
+  //   if (showOtp && timeLeft > 0) {
+  //     timer = setInterval(() => {
+  //       setTimeLeft((prevTime) => prevTime - 1);
+  //     }, 1000);
+  //   } else if (timeLeft === 0) {
+  //     setShowOtp(false);
+  //     setOtpValues(["", "", "", ""]);
+  //     setError("OTP expired. Please request a new one.");
+  //   }
+  //   return () => clearInterval(timer);
+  // }, [showOtp, timeLeft]);
 
   const handleMobileSubmit = async (e) => {
     e.preventDefault();
@@ -201,7 +201,7 @@ function LoginScreen() {
                   <form onSubmit={handleOtpSubmit}>
                     <div className="mb-3 mb-lg-4">
                       <label className="form-label text-muted fw-semibold small">
-                        Enter OTP (Expires in {timeLeft}s)
+                        Enter OTP 
                       </label>
                       <div className="d-flex justify-content-center gap-2 gap-sm-3">
                         {[0, 1, 2, 3].map((index) => (
@@ -245,7 +245,7 @@ function LoginScreen() {
                       onClick={() => {
                         setShowOtp(false);
                         setOtpValues(["", "", "", ""]);
-                        setTimeLeft(10);
+                        // setTimeLeft(10);
                       }}
                       disabled={loading}
                     >

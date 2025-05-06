@@ -6,46 +6,38 @@ function Header() {
 
   const authData = JSON.parse(localStorage.getItem("authData"));
   const outletName = authData?.outlet_name; // Get 
-  const userId = authData?.user_id; // Get 
+  const userId = localStorage.getItem("user_id");// Get 
   const navigate = useNavigate();
   const handleLogout = async () => {
     try {
-
-    
-  
       const logoutData = {
-        user_id: userId,
+        user_id: localStorage.getItem("user_id"), // <-- Correct key here
         role: "cds",
-        app: "cds", // Assuming 'owner' is the application name
-       device_token: 
-       "Entjx4wL350fdkAPvRs2YHKeBgImyElMnk5USx1QYz5UbWGooIt16BLTqGMsCdfzQPn9SKg3YtkQ94KHHqk.cYjkEmN.8nvp-Qyr",
-
+        app: "cds",
+        device_token: "Entjx4wL350fdkAPvRs2YHKeBgImyElMnk5USx1QYz5UbWGooIt16BLTqGMsCdfzQPn9SKg3YtkQ94KHHqk.cYjkEmN.8nvp-Qyr",
       };
   
-      // Make API request to logout using fetch
       const response = await fetch("https://men4u.xyz/common_api/logout", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(logoutData), // Send logout data as JSON in the body
+        body: JSON.stringify(logoutData),
       });
   
-      const data = await response.json(); // Parse JSON response
+      const data = await response.json();
   
       if (data.st === 1) {
-        // Successfully logged out, clear all localStorage items
         localStorage.clear();
-        // Redirect to login page
-       navigate("/login")
-      } else {
-        navigate("/login")
       }
+  
+      navigate("/login");
     } catch (error) {
       console.error("Error logging out:", error);
       window.showToast("error", error.message || "Failed to log out.");
     }
   };
+  
   
   
   return (
@@ -60,7 +52,7 @@ function Header() {
           {/* Navigation Links */}
           <ul className="navbar-nav ms-auto align-items-center">
             <li className="nav-item fs-3">
-              <div className={`nav-link px-3`} onClick={handleLogout}>
+              <div className={`nav-link px-3 text-danger`} onClick={handleLogout}>
                 <i className="bx bx-log-out"></i>
               </div>
             </li>
