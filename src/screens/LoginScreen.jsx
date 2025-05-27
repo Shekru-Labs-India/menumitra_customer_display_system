@@ -49,7 +49,12 @@ function LoginScreen() {
     try {
       const result = await authService.sendOTP(mobileNumber);
       if (result.st === 1) {
-        setShowOtp(true);
+        // Check if the user has CDS role
+        if (result.role === "cds") {
+          setShowOtp(true);
+        } else {
+          setError("Access denied. Only CDS users can login here.");
+        }
       } else {
         setError(result.msg || "Invalid mobile number");
       }
@@ -170,7 +175,15 @@ function LoginScreen() {
                           value={mobileNumber}
                           onChange={(e) => {
                             const value = e.target.value.replace(/\D/g, ""); // Only digits
-                            if (value.length <= 10) setMobileNumber(value);
+                            // Only allow if first digit is 6-9, and total length <= 10
+                            if (
+                              value === "" ||
+                              (value[0] >= "6" &&
+                                value[0] <= "9" &&
+                                value.length <= 10)
+                            ) {
+                              setMobileNumber(value);
+                            }
                           }}
                           maxLength="10"
                           required

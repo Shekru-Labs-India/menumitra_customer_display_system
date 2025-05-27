@@ -45,9 +45,10 @@ function Header() {
       <nav className="navbar navbar-expand-lg navbar-dark py-2">
         <div className="container-fluid px-5">
           {/* Brand/Logo */}
-          <Link to="/" className="navbar-brand d-flex align-items-center">
-          <span className="fs-4 fw-bold">{outletName?.toUpperCase()}</span>
-          </Link>
+          <div className="navbar-brand d-flex align-items-center">
+            <span className="fs-4 fw-bold">{outletName?.toUpperCase()}</span>
+          </div>
+        
 
           {/* Navigation Links */}
           <ul className="navbar-nav ms-auto align-items-center">
