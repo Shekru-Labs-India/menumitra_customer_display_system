@@ -49,11 +49,11 @@ function LoginScreen() {
     try {
       const result = await authService.sendOTP(mobileNumber);
       if (result.st === 1) {
-        // Check if the user has CDS role
-        if (result.role === "cds") {
+        // Allow both CDS and manager roles
+        if (result.role === "cds" || result.role === "manager") {
           setShowOtp(true);
         } else {
-          setError("Access denied. Only CDS users can login here.");
+          setError("Access denied. Only CDS and Manager users can login here.");
         }
       } else {
         setError(result.msg || "Invalid mobile number");
