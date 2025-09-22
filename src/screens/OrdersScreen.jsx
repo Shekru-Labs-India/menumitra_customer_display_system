@@ -14,8 +14,8 @@ function OrdersScreen() {
   const fetchOrders = async () => {
     const authData = JSON.parse(localStorage.getItem("authData"));
     const outlet_id = authData?.outlet_id;
-    const accessToken = authData?.access_token; // Get 
-    const device_token = "Entjx4wL350fdkAPvRs2YHKeBgImyElMnk5USx1QYz5UbWGooIt16BLTqGMsCdfzQPn9SKg3YtkQ94KHHqk.cYjkEmN.8nvp-Qyr";
+    const accessToken = authData?.access_token;
+    const device_token = authData?.device_token; // Use dynamic device_token from localStorage
 
   
     if (!outlet_id) {

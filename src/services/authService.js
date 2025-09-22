@@ -69,8 +69,16 @@ export const authService = {
       const result = await response.json();
   
       if (result.st === 1) {
-        const { name,  outlet_name, outlet_id,user_id,access_token } = result;
-  
+        const { 
+          name, 
+          outlet_name, 
+          outlet_id, 
+          user_id, 
+          access_token, 
+          device_token,
+          refresh 
+        } = result;
+
         localStorage.setItem(
           "authData",
           JSON.stringify({
@@ -79,9 +87,9 @@ export const authService = {
             user_id,
             outlet_id,
             access_token,
-            device_id: deviceSessId, // Store the session ID in localStorage
-            // device_model,
-          
+            device_token, // Add this line to store device_token
+            device_id: deviceSessId,
+            refresh
           })
         );
       }
