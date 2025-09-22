@@ -1,9 +1,11 @@
+import { apiDomain } from "../components/config";
+
 export const authService = {
   // Send OTP
   sendOTP: async (mobileNumber) => {
     try {
       const response = await fetch(
-        "https://men4u.xyz/customer_display_system_api/cds_login",
+        apiDomain + "customer_display_system_api/cds_login",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -22,7 +24,7 @@ export const authService = {
   verifyOTP: async (mobileNumber, otp) => {
     try {
       const response = await fetch(
-        "https://men4u.xyz/customer_display_system_api/cds_verify_otp",
+        apiDomain + "customer_display_system_api/cds_verify_otp",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
