@@ -11,11 +11,12 @@ function Header() {
   const navigate = useNavigate();
   const handleLogout = async () => {
     try {
+      const authData = JSON.parse(localStorage.getItem("authData"));
       const logoutData = {
-        user_id: localStorage.getItem("user_id"), // <-- Correct key here
+        user_id: authData?.user_id, // Use from authData instead of separate localStorage
         role: "cds",
         app: "cds",
-        device_token: "Entjx4wL350fdkAPvRs2YHKeBgImyElMnk5USx1QYz5UbWGooIt16BLTqGMsCdfzQPn9SKg3YtkQ94KHHqk.cYjkEmN.8nvp-Qyr",
+        device_token: authData?.device_token, // Use dynamic device_token from localStorage
       };
   
       const response = await fetch(apiDomain + "common_api/logout", {
