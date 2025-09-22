@@ -1,10 +1,12 @@
 
+import { apiDomain } from "../components/config";
+
 export const authService = {
   // Send OTP
   sendOTP: async (mobileNumber) => {
     try {
       const response = await fetch(
-        "https://men4u.xyz/common_api/user_login",
+        apiDomain + "common_api/user_login",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -47,7 +49,7 @@ export const authService = {
     const deviceSessId = generateRandomSessionId(20);
   
     try {
-      const response = await fetch("https://men4u.xyz/customer_display_system_api/cds_verify_otp", {
+      const response = await fetch(apiDomain + "customer_display_system_api/cds_verify_otp", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -60,7 +62,7 @@ export const authService = {
 
 
 
-        
+         
         }),
       });
   

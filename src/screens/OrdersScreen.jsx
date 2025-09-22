@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Header from "../components/Header";
+import { apiDomain } from "../components/config";
 
 function OrdersScreen() {
   const [orders, setOrders] = useState([]);
@@ -35,7 +36,7 @@ function OrdersScreen() {
     }
   
     try {
-      const response = await fetch("https://men4u.xyz/common_api/cds_kds_order_listview", {
+      const response = await fetch(apiDomain + "common_api/cds_kds_order_listview", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

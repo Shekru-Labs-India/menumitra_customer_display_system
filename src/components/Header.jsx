@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link, useLocation ,useNavigate } from 'react-router-dom'
+import { apiDomain } from './config'
 
 function Header() {
   const location = useLocation()
@@ -17,7 +18,7 @@ function Header() {
         device_token: "Entjx4wL350fdkAPvRs2YHKeBgImyElMnk5USx1QYz5UbWGooIt16BLTqGMsCdfzQPn9SKg3YtkQ94KHHqk.cYjkEmN.8nvp-Qyr",
       };
   
-      const response = await fetch("https://men4u.xyz/common_api/logout", {
+      const response = await fetch(apiDomain + "common_api/logout", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
